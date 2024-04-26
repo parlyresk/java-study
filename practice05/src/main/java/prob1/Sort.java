@@ -16,6 +16,16 @@ public class Sort {
 		//
 		// 정렬 알고리즘이 적용된 코드를 여기에 작성합니다.
 		//
+		int temp;
+		for(int i=0;i<count;i++) {
+			for(int j=0;j<count;j++) {
+				if(array[j]<array[i]) {
+					temp=array[j];
+					array[j]=array[i];
+					array[i]=temp;
+				}
+			}
+		}
 
 		
 		// 결과 출력
