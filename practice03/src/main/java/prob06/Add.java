@@ -6,7 +6,7 @@ public class Add extends Arith{
 	
 
 	@Override
-	public int calculate() {
+	public Integer calculate() {
 		// TODO Auto-generated method stub
 		
 		return getA()+getB();

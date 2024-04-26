@@ -3,7 +3,7 @@ package prob06;
 public class Sub extends Arith{
 	
 	@Override
-	public int calculate() {
+	public Integer calculate() {
 		return getA() - getB();
 	}
 }

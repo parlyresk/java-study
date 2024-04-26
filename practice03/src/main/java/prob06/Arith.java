@@ -16,5 +16,5 @@ public abstract class Arith {
 		return b;
 	}
 
-	public abstract int calculate();
+	public abstract Number calculate();
 }

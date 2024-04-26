@@ -8,7 +8,7 @@ public class Div extends Arith{
 	
 
 	@Override
-	public int calculate() {
-		return getA()/getB();
+	public Double calculate() {
+		return (double) getA()/getB();
 	}
 }
