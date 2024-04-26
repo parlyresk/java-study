@@ -34,6 +34,7 @@ public class Point {
 	public int hashCode() {
 		return Objects.hash(x, y);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
