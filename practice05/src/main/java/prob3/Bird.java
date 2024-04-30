@@ -14,9 +14,9 @@ public abstract class Bird {
 	protected abstract void fly();
 
 	protected abstract void sing();
+	
+	public abstract String toString();
 
-	public void println() {
-		
-		
-	}
+	
+
 }
