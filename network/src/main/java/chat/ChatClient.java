@@ -53,7 +53,7 @@ public class ChatClient {
 
                 if ("quit".equals(input)) {
                     // 8. quit 프로토콜 처리
-                    pw.println("quit"+nickname);
+                    pw.println("quit");
                     
                     break;
                 } else {
@@ -63,7 +63,7 @@ public class ChatClient {
                 }
             }
         } catch (SocketException e) {
-            log("Socket Exception: " + e);
+             log("Socket Exception: " + e);
         } catch (IOException e) {
             log("error:" + e);
         } finally {

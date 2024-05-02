@@ -34,7 +34,8 @@ public class ChatClientThread extends Thread {
     		}
     	}
     	catch(IOException e){
-    		ChatClient.log("error:" +e);
+    		// quit하면 여기로 넘어가는데?
+    		ChatClient.log("error12312321:" +e);
     	}
     }
 }
