@@ -7,9 +7,10 @@ import java.util.Scanner;
 public class NSLookup {
 
 	public static void main(String[] args) {
+		Scanner scanner=null;
 		while(true) {
 			System.out.print(">");
-			Scanner scanner=new Scanner(System.in);
+			scanner=new Scanner(System.in);
 			String string = scanner.next();
 			if("exit".equals(string)) {
 				break;
@@ -27,7 +28,7 @@ public class NSLookup {
 				e.printStackTrace();
 			}
 		}
-		
+		scanner.close();
 	}
 
 }
