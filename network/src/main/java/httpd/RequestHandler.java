@@ -64,7 +64,7 @@ public class RequestHandler extends Thread {
 			}else {
 				// methods: POST, PUT, DELETE, HEAD, CONNECT 
 				// SimpleHttpServer에서는 무시(400 Bad Request)
-				// response400Error(outputStream,tokens[2]);
+				response400Error(outputStream,tokens[2]);
 				
 			}
 			
@@ -86,6 +86,36 @@ public class RequestHandler extends Thread {
 		}			
 	}
 
+	private void response400Error(OutputStream outputStream, String protocol) throws IOException{
+		// TODO Auto-generated method stub
+		File file=new File(DOCUMENT_ROOT + "/error/400.html");
+		if(!file.exists()) {
+			response404Error(outputStream,protocol);
+			return;
+		}
+		byte[] body = Files.readAllBytes(file.toPath());
+		String contentType=Files.probeContentType(file.toPath());
+		
+		outputStream.write((protocol + "  400 Bad Request\n").getBytes("UTF-8"));
+		outputStream.write(("Content-Type:"+contentType+"; charset=utf-8\n").getBytes("UTF-8"));
+		outputStream.write("\n".getBytes() );
+		outputStream.write(body);
+		
+	}
+
+	private void response404Error(OutputStream outputStream, String protocol) throws IOException{
+		// TODO Auto-generated method stub
+		File file=new File(DOCUMENT_ROOT + "/error/404.html");
+		
+		byte[] body = Files.readAllBytes(file.toPath());
+		String contentType=Files.probeContentType(file.toPath());
+		
+		outputStream.write((protocol + "  400 Bad Request\n").getBytes("UTF-8"));
+		outputStream.write(("Content-Type:"+contentType+"; charset=utf-8\n").getBytes("UTF-8"));
+		outputStream.write("\n".getBytes() );
+		outputStream.write(body);
+	}
+
 	private void responseStaticResource(OutputStream outputStream, String url, String protocol) throws IOException{
 		// default(welcome) file set
 		if("/".equals(url)) {
@@ -94,7 +124,7 @@ public class RequestHandler extends Thread {
 		
 		File file=new File(DOCUMENT_ROOT + url);
 		if(!file.exists()) {
-			// response404Error(outputStream,protocol);
+			response404Error(outputStream,protocol);
 			return;
 		}
 		
