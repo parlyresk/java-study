@@ -65,7 +65,7 @@ public class ChatServerThread extends Thread {
 		addWriter(pw);
 
 		// ack
-		pw.println("join:ok:" + nickName);
+		//pw.println("join:ok:" + nickName);
 	}
 
 	private void doQuit(PrintWriter pw) {
