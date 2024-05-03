@@ -37,10 +37,24 @@ public class ChatServerThread extends Thread {
 
 				// 프로토콜 분석
 				String[] tokens = request.split(":");
+				
+				System.out.println("");
 				if ("join".equals(tokens[0])) {
 					doJoin(tokens[1], pw);
 				} else if ("message".equals(tokens[0])) {
-					doMessage(tokens[1]);
+					if(tokens.length>2) {
+						String s="";
+						for(int i=1;i<tokens.length;i++) {
+							s+=tokens[i];
+							if(i!=tokens.length-1) {
+								s+=":";
+							}
+						}
+						doMessage(s);
+					}else {
+						doMessage(tokens[1]);
+					}
+					
 				} else if ("quit".equals(tokens[0])) {
 					doQuit(pw);
 					break;
