@@ -18,12 +18,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Base64;
 import java.util.Base64.Encoder;
-
-import chat.ChatServer;
 
 public class ChatWindow {
 
@@ -32,20 +29,20 @@ public class ChatWindow {
 	private Button buttonSend;
 	private TextField textField;
 	private TextArea textArea;
-	private static final String SERVER_IP = "127.0.0.1";
 	private Socket socket;
+	
 	private PrintWriter pw;
 	private BufferedReader br;
 	public String nickname;
 	private boolean running=true;
 
-	public ChatWindow(String name) {
+	public ChatWindow(Socket socket,String name) {
 		frame = new Frame(name);
 		pannel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
-		socket = new Socket();
+		this.socket = socket;
 		nickname=name;
 	}
 
@@ -96,8 +93,7 @@ public class ChatWindow {
 		
 		// ChatClientThread 생성
         try {
-        	socket=new Socket();
-        	socket.connect(new InetSocketAddress(SERVER_IP, ChatServer.PORT));
+        	
         	
         	pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
             br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
