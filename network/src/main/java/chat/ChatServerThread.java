@@ -7,6 +7,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.List;
 
 public class ChatServerThread extends Thread {
@@ -37,23 +39,17 @@ public class ChatServerThread extends Thread {
 
 				// 프로토콜 분석
 				String[] tokens = request.split(":");
-				
-				System.out.println("");
+				Decoder decoder = Base64.getDecoder();
+		        byte[] decodedBytes = decoder.decode(tokens[1]);
 				if ("join".equals(tokens[0])) {
-					doJoin(tokens[1], pw);
+					
+			        
+					doJoin(new String(decodedBytes), pw);
 				} else if ("message".equals(tokens[0])) {
-					if(tokens.length>2) {
-						String s="";
-						for(int i=1;i<tokens.length;i++) {
-							s+=tokens[i];
-							if(i!=tokens.length-1) {
-								s+=":";
-							}
-						}
-						doMessage(s);
-					}else {
-						doMessage(tokens[1]);
-					}
+					
+					
+					doMessage(new String(decodedBytes));
+					
 					
 				} else if ("quit".equals(tokens[0])) {
 					doQuit(pw);

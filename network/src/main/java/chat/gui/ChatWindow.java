@@ -20,6 +20,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import chat.ChatServer;
 
@@ -100,7 +102,12 @@ public class ChatWindow {
         	pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
             br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
             
-            pw.println("join:"+nickname);
+            
+            byte[] targetBytes = nickname.getBytes();
+            Encoder encoder = Base64.getEncoder();
+            byte[] encodedBytes = encoder.encode(targetBytes);
+   
+            pw.println("join:"+new String(encodedBytes));
             textArea.append("환영합니다!"+nickname+"님! 즐거운 채팅하세요!\n");
             
             new ChatClientThread().start();
@@ -117,7 +124,11 @@ public class ChatWindow {
 			pw.println("quit:" + message);
 			finish();
 		}else {
-			pw.println("message:" + message);
+			
+			byte[] targetBytes = message.getBytes();
+			Encoder encoder = Base64.getEncoder();
+            byte[] encodedBytes = encoder.encode(targetBytes);
+			pw.println("message:" + new String(encodedBytes));
 			
 		}
 
