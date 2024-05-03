@@ -35,6 +35,7 @@ public class ChatWindow {
 	private PrintWriter pw;
 	private BufferedReader br;
 	public String nickname;
+	private boolean running=true;
 
 	public ChatWindow(String name) {
 		frame = new Frame(name);
@@ -105,6 +106,7 @@ public class ChatWindow {
             new ChatClientThread().start();
             
         }catch(IOException e) {
+        	System.out.println("error 01");
         	e.printStackTrace();
         }
 	}
@@ -122,8 +124,7 @@ public class ChatWindow {
 		textField.setText("");
 		textField.requestFocus();
 
-		// ChatClientThread에서 서버로 부터 받은 메세지가 있다고 치고!!!!!~~~~
-//		updateTextArea("마이콜:" + message);
+		
 		
 	}
 
@@ -133,6 +134,7 @@ public class ChatWindow {
 	}
 
 	private void finish() {
+		running=false;
 		
 		try {
 			// 10. 자원정리
@@ -147,6 +149,7 @@ public class ChatWindow {
 				br.close();
 			}
 		} catch (IOException e) {
+			System.out.println("error 02");
 			e.printStackTrace();
 		}
 		// exit java application
@@ -154,16 +157,22 @@ public class ChatWindow {
 	}
 
 	private class ChatClientThread extends Thread {
+		
+
+	    
 		@Override
 		public void run() {
 			try {
 				String message;
-				while ((message = br.readLine()) != null) {
+				while (running && (message = br.readLine()) != null) {
 					updateTextArea(message);
 				}
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				if (running) {
+	                System.out.println("정상적이지 못한 종료");
+	                e.printStackTrace();
+	            }
 			}
 
 		}
