@@ -50,9 +50,7 @@ public class ChatServerThread extends Thread {
 			}
 		} catch (IOException e) {
 			doQuit(pw);
-			if (pw != null) {
-				System.out.println("pw가 널값이 아님..!");
-			}
+			
 			ChatServer.log("클라이언트 통신 오류: " + e);
 		}
 	}
