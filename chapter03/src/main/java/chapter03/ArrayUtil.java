@@ -1,5 +1,6 @@
 package chapter03;
 // test
+// test2
 public class ArrayUtil {
 
 	public static double[] intToDouble(int[] a) {
